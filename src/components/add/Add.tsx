@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import "./add.scss";
 
@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Add = (props: Props) => {
-  const [generatedId, setGeneratedId] = React.useState("");
+  const [generatedId, setGeneratedId] = useState("");
 
   const generateId = () => {
     const randomId = Math.random().toString(36).substr(2, 8).toUpperCase();
@@ -27,7 +27,7 @@ const Add = (props: Props) => {
         formData[column.field] = input.value;
       });
 
-    formData["identity"] = generatedId; // Assuming "identity" is the field for the 8-digit ID
+    formData["identity"] = generatedId;
 
     try {
       const response = await fetch(`http://localhost:3000/api/${props.slug}s`, {
@@ -41,7 +41,7 @@ const Add = (props: Props) => {
 
       if (response.ok) {
         props.setOpen(false);
-        // Perform additional actions upon successful API call
+        // Additional actions upon successful API call
       } else {
         console.error("Failed to add item");
         // Handle errors based on response status or message
@@ -65,19 +65,28 @@ const Add = (props: Props) => {
             .map((column) => (
               <div className="item" key={column.field}>
                 <label>{column.headerName}</label>
-                <input
-                  type={column.type || "text"}
-                  name={column.field}
-                  placeholder={column.field}
-                />
+                {column.field === "roles" ? (
+                  <select
+                    name={column.field}
+                    onChange={(e) => e.preventDefault()}>
+                    <option value="">Select Role</option>
+                    <option value="agent">Agent</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                ) : (
+                  <input
+                    type={column.type || "text"}
+                    name={column.field}
+                    placeholder={column.field}
+                  />
+                )}
               </div>
             ))}
-          {/* Display the generated ID */}
           <div className="item" key="generatedId">
             <label>Generated ID</label>
             <input type="text" value={generatedId} disabled />
           </div>
-          {/* Button to generate a new ID */}
           <button type="button" onClick={generateId}>
             Generate ID
           </button>
