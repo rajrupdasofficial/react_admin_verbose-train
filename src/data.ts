@@ -45,6 +45,7 @@ export const menu = [
         url: "/posts",
         icon: "post2.svg",
       },
+   
     ],
   },
   {
@@ -315,7 +316,7 @@ export const userRows = [
     img: "https://images.pexels.com/photos/8405873/pexels-photo-8405873.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
     lastName: "Hubbard",
     firstName: "Eula",
-    email: "kewez@@gmail.com",
+    email: "kewez@gmail.com",
     phone: "123 456 789",
     createdAt: "01.02.2023",
     verified: true,

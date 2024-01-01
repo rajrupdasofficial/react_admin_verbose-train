@@ -17,15 +17,15 @@ const columns: GridColDef[] = [
     },
   },
   {
-    field: "firstName",
+    field: "username",
     type: "string",
-    headerName: "First name",
+    headerName: "Username",
     width: 150,
   },
   {
-    field: "lastName",
+    field: "name",
     type: "string",
-    headerName: "Last name",
+    headerName: "Name",
     width: 150,
   },
   {
@@ -41,31 +41,33 @@ const columns: GridColDef[] = [
     width: 200,
   },
   {
-    field: "createdAt",
-    headerName: "Created At",
-    width: 200,
+    field: "password",
     type: "string",
+    headerName: "Password",
+    width: 200,
   },
   {
-    field: "verified",
-    headerName: "Verified",
-    width: 150,
-    type: "boolean",
+    field: "roles",
+    type: "string",
+    headerName: "Assign User Roles",
+    width: 200,
   },
+  // {
+  //   field: "createdAt",
+  //   headerName: "Created At",
+  //   width: 200,
+  //   type: "string",
+  // },
+  // {
+  //   field: "verified",
+  //   headerName: "Verified",
+  //   width: 150,
+  //   type: "boolean",
+  // },
 ];
 
 const Users = () => {
   const [open, setOpen] = useState(false);
-
-  // TEST THE API
-
-  // const { isLoading, data } = useQuery({
-  //   queryKey: ["allusers"],
-  //   queryFn: () =>
-  //     fetch("http://localhost:8800/api/users").then(
-  //       (res) => res.json()
-  //     ),
-  // });
 
   return (
     <div className="users">
