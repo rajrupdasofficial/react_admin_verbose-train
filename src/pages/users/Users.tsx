@@ -8,14 +8,18 @@ import { userRows } from "../../data";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "img",
-    headerName: "Avatar",
-    width: 100,
-    renderCell: (params) => {
-      return <img src={params.row.img || "/noavatar.png"} alt="" />;
-    },
-  },
+  // {
+  //   field: "img",
+  //   headerName: "Avatar",
+  //   width: 100,
+  //   renderCell: (params) => {
+  //     return <img src={params.row.img || "/noavatar.png"} alt="" />;
+  //   },
+  // },
+  // {
+  //   field: "octaid",
+  //   headerName: "manual id",
+  // },
   {
     field: "username",
     type: "string",
@@ -35,7 +39,7 @@ const columns: GridColDef[] = [
     width: 200,
   },
   {
-    field: "phone",
+    field: "phonenumber",
     type: "string",
     headerName: "Phone",
     width: 200,
@@ -52,6 +56,7 @@ const columns: GridColDef[] = [
     headerName: "Assign User Roles",
     width: 200,
   },
+
   // {
   //   field: "createdAt",
   //   headerName: "Created At",
