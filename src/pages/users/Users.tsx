@@ -56,7 +56,7 @@ const Users = () => {
   return (
     <div className="users">
       <div className="info">
-        <h1>Users</h1>
+        <h1>Agent</h1>
         <button onClick={() => setOpen(true)}>Add New Agent</button>
       </div>
       <DataTable slug="users" columns={columns} rows={userRows} />
