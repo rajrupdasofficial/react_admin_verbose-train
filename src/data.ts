@@ -314,13 +314,10 @@ export const barChartBoxVisit = {
 // user datafetching
 interface User {
   id: number;
-  img: string;
-  lastName: string;
-  firstName: string;
+  username: string;
   email: string;
   phone: string;
-  createdAt: string;
-  verified: boolean;
+  created: string;
   octaid:string;
 }
 
