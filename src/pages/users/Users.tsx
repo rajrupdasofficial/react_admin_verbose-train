@@ -9,23 +9,15 @@ import { userRows } from "../../data";
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
   {
-    field: "img",
-    headerName: "Avatar",
-    width: 100,
-    renderCell: (params) => {
-      return <img src={params.row.img || "/noavatar.png"} alt="" />;
-    },
-  },
-  {
-    field: "firstName",
+    field: "username",
     type: "string",
-    headerName: "First name",
+    headerName: "Username",
     width: 150,
   },
   {
-    field: "lastName",
+    field: "name",
     type: "string",
-    headerName: "Last name",
+    headerName: "Name",
     width: 150,
   },
   {
@@ -35,37 +27,27 @@ const columns: GridColDef[] = [
     width: 200,
   },
   {
-    field: "phone",
+    field: "phonenumber",
     type: "string",
     headerName: "Phone",
     width: 200,
   },
   {
-    field: "createdAt",
-    headerName: "Created At",
-    width: 200,
+    field: "password",
     type: "string",
+    headerName: "Password",
+    width: 200,
   },
   {
-    field: "verified",
-    headerName: "Verified",
-    width: 150,
-    type: "boolean",
+    field: "roles",
+    type: "string",
+    headerName: "Assign User Roles",
+    width: 200,
   },
 ];
 
 const Users = () => {
   const [open, setOpen] = useState(false);
-
-  // TEST THE API
-
-  // const { isLoading, data } = useQuery({
-  //   queryKey: ["allusers"],
-  //   queryFn: () =>
-  //     fetch("http://localhost:8800/api/users").then(
-  //       (res) => res.json()
-  //     ),
-  // });
 
   return (
     <div className="users">
