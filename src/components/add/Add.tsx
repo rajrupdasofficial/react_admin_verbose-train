@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import "./add.scss";
 
@@ -9,25 +9,22 @@ type Props = {
 };
 
 const Add = (props: Props) => {
-  const [generatedId, setGeneratedId] = useState("");
-
-  const generateId = () => {
-    const randomId = Math.random().toString(36).substr(2, 8).toUpperCase();
-    setGeneratedId(randomId);
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = {} as Record<string, any>;
-    props.columns
-      .filter((item) => item.field !== "id" && item.field !== "img")
-      .forEach((column) => {
-        const input = e.currentTarget[column.field] as HTMLInputElement;
-        formData[column.field] = input.value;
-      });
+    const formData: Record<string, any> = {};
+    const form = e.currentTarget;
 
-    formData["identity"] = generatedId;
+    props.columns
+      .filter((column) => column.field !== "octaid") // Exclude 'octaid' field
+      .forEach((column) => {
+        const input = form.elements.namedItem(
+          column.field
+        ) as HTMLInputElement | null;
+        if (input) {
+          formData[column.field] = input.value;
+        }
+      });
 
     try {
       const response = await fetch(`http://localhost:3000/api/${props.slug}s`, {
@@ -58,38 +55,27 @@ const Add = (props: Props) => {
         <span className="close" onClick={() => props.setOpen(false)}>
           X
         </span>
-        <h1>Add new {props.slug}</h1>
+        <h1>Add new Agent</h1>
         <form onSubmit={handleSubmit}>
           {props.columns
-            .filter((item) => item.field !== "id" && item.field !== "img")
+            .filter(
+              (item) =>
+                item.field !== "id" &&
+                item.field !== "img" &&
+                item.field !== "roles" &&
+                item.field !== "octaid" // Exclude 'octaid' field from rendering
+            )
             .map((column) => (
               <div className="item" key={column.field}>
                 <label>{column.headerName}</label>
-                {column.field === "roles" ? (
-                  <select
-                    name={column.field}
-                    onChange={(e) => e.preventDefault()}>
-                    <option value="">Select Role</option>
-                    <option value="agent">Agent</option>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                  </select>
-                ) : (
-                  <input
-                    type={column.type || "text"}
-                    name={column.field}
-                    placeholder={column.field}
-                  />
-                )}
+                <input
+                  type={column.type || "text"}
+                  name={column.field}
+                  placeholder={column.field}
+                />
               </div>
             ))}
-          <div className="item" key="generatedId">
-            <label>Generated ID</label>
-            <input type="text" value={generatedId} disabled />
-          </div>
-          <button type="button" onClick={generateId}>
-            Generate ID
-          </button>
+
           <button type="submit">Submit</button>
         </form>
       </div>

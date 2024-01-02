@@ -1,8 +1,4 @@
-import {
-  DataGrid,
-  GridColDef,
-  GridToolbar,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import "./dataTable.scss";
 import { Link } from "react-router-dom";
 // import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -14,7 +10,6 @@ type Props = {
 };
 
 const DataTable = (props: Props) => {
-
   // TEST THE API
 
   // const queryClient = useQueryClient();
@@ -28,10 +23,26 @@ const DataTable = (props: Props) => {
   // //     queryClient.invalidateQueries([`all${props.slug}`]);
   // //   }
   // // });
+  const handleDelete = async (octaid: string) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/users/delete`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ octaid }), // assuming the server expects the ID in this format
+      });
 
-  const handleDelete = (id: number) => {
-    //delete the item
-    // mutation.mutate(id)
+      if (response.ok) {
+        alert("Delete");
+        window.location.reload();
+      } else {
+        console.log("error 2");
+      }
+    } catch (error) {
+      // Handle fetch errors here
+      console.error("Error deleting item:", error);
+    }
   };
 
   const actionColumn: GridColDef = {
@@ -44,7 +55,9 @@ const DataTable = (props: Props) => {
           <Link to={`/${props.slug}/${params.row.id}`}>
             <img src="/view.svg" alt="" />
           </Link>
-          <div className="delete" onClick={() => handleDelete(params.row.id)}>
+          <div
+            className="delete"
+            onClick={() => handleDelete(params.row.octaid)}>
             <img src="/delete.svg" alt="" />
           </div>
         </div>
@@ -73,7 +86,7 @@ const DataTable = (props: Props) => {
           },
         }}
         pageSizeOptions={[5]}
-        checkboxSelection
+        // checkboxSelection
         disableRowSelectionOnClick
         disableColumnFilter
         disableDensitySelector
