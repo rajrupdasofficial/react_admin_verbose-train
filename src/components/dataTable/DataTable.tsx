@@ -1,8 +1,4 @@
-import {
-  DataGrid,
-  GridColDef,
-  GridToolbar,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import "./dataTable.scss";
 import { Link } from "react-router-dom";
 // import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,25 +9,43 @@ type Props = {
   slug: string;
 };
 
+// TEST THE API
+
+// const queryClient = useQueryClient();
+// // const mutation = useMutation({
+// //   mutationFn: (id: number) => {
+// //     return fetch(`http://localhost:8800/api/${props.slug}/${id}`, {
+// //       method: "delete",
+// //     });
+// //   },
+// //   onSuccess: ()=>{
+// //     queryClient.invalidateQueries([`all${props.slug}`]);
+// //   }
+// // });
 const DataTable = (props: Props) => {
+  const handleDelete = async (octaid: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/${props.slug}/delete`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ octaid }), // assuming the server expects the ID in this format
+        }
+      );
 
-  // TEST THE API
-
-  // const queryClient = useQueryClient();
-  // // const mutation = useMutation({
-  // //   mutationFn: (id: number) => {
-  // //     return fetch(`http://localhost:8800/api/${props.slug}/${id}`, {
-  // //       method: "delete",
-  // //     });
-  // //   },
-  // //   onSuccess: ()=>{
-  // //     queryClient.invalidateQueries([`all${props.slug}`]);
-  // //   }
-  // // });
-
-  const handleDelete = (id: number) => {
-    //delete the item
-    // mutation.mutate(id)
+      if (response.ok) {
+        alert("Delete");
+        window.location.reload();
+      } else {
+        console.log("error 2");
+      }
+    } catch (error) {
+      // Handle fetch errors here
+      console.error("Error deleting item:", error);
+    }
   };
 
   const actionColumn: GridColDef = {
@@ -41,10 +55,12 @@ const DataTable = (props: Props) => {
     renderCell: (params) => {
       return (
         <div className="action">
-          <Link to={`/${props.slug}/${params.row.id}`}>
-            <img src="/view.svg" alt="" />
+          <Link to={`/${props.slug}/${params.row.octaid}`}>
+            <img src="/view.svg" alt="editbutton" />
           </Link>
-          <div className="delete" onClick={() => handleDelete(params.row.id)}>
+          <div
+            className="delete"
+            onClick={() => handleDelete(params.row.octaid)}>
             <img src="/delete.svg" alt="" />
           </div>
         </div>
@@ -73,7 +89,7 @@ const DataTable = (props: Props) => {
           },
         }}
         pageSizeOptions={[5]}
-        checkboxSelection
+        // checkboxSelection
         disableRowSelectionOnClick
         disableColumnFilter
         disableDensitySelector

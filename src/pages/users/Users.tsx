@@ -11,38 +11,44 @@ const columns: GridColDef[] = [
   {
     field: "username",
     type: "string",
-    headerName: "Username",
+    headerName: "Agent User name",
     width: 150,
   },
   {
     field: "name",
     type: "string",
-    headerName: "Name",
+    headerName: "Agent full Name",
+
     width: 150,
   },
   {
     field: "email",
     type: "string",
-    headerName: "Email",
+    headerName: "Agent Email",
     width: 200,
   },
   {
     field: "phonenumber",
     type: "string",
-    headerName: "Phone",
+    headerName: "Agent Phone Number",
     width: 200,
   },
   {
     field: "password",
     type: "string",
-    headerName: "Password",
+    headerName: "Set Password",
     width: 200,
   },
   {
+    field: "octaid",
+    editable: false,
+    headerName: "Agent ID",
+    width: 300,
+  },
+  {
     field: "roles",
-    type: "string",
-    headerName: "Assign User Roles",
-    width: 200,
+    editable: false,
+
   },
 ];
 
@@ -52,8 +58,8 @@ const Users = () => {
   return (
     <div className="users">
       <div className="info">
-        <h1>Users</h1>
-        <button onClick={() => setOpen(true)}>Add New User</button>
+        <h1>Agent</h1>
+        <button onClick={() => setOpen(true)}>Add New Agent</button>
       </div>
       <DataTable slug="users" columns={columns} rows={userRows} />
       {/* TEST THE API */}
