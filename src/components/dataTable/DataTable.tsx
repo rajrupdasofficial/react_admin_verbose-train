@@ -9,29 +9,32 @@ type Props = {
   slug: string;
 };
 
-const DataTable = (props: Props) => {
-  // TEST THE API
+// TEST THE API
 
-  // const queryClient = useQueryClient();
-  // // const mutation = useMutation({
-  // //   mutationFn: (id: number) => {
-  // //     return fetch(`http://localhost:8800/api/${props.slug}/${id}`, {
-  // //       method: "delete",
-  // //     });
-  // //   },
-  // //   onSuccess: ()=>{
-  // //     queryClient.invalidateQueries([`all${props.slug}`]);
-  // //   }
-  // // });
+// const queryClient = useQueryClient();
+// // const mutation = useMutation({
+// //   mutationFn: (id: number) => {
+// //     return fetch(`http://localhost:8800/api/${props.slug}/${id}`, {
+// //       method: "delete",
+// //     });
+// //   },
+// //   onSuccess: ()=>{
+// //     queryClient.invalidateQueries([`all${props.slug}`]);
+// //   }
+// // });
+const DataTable = (props: Props) => {
   const handleDelete = async (octaid: string) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/users/delete`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ octaid }), // assuming the server expects the ID in this format
-      });
+      const response = await fetch(
+        `http://localhost:3000/api/${props.slug}/delete`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ octaid }), // assuming the server expects the ID in this format
+        }
+      );
 
       if (response.ok) {
         alert("Delete");
@@ -52,8 +55,8 @@ const DataTable = (props: Props) => {
     renderCell: (params) => {
       return (
         <div className="action">
-          <Link to={`/${props.slug}/${params.row.id}`}>
-            <img src="/view.svg" alt="" />
+          <Link to={`/${props.slug}/${params.row.octaid}`}>
+            <img src="/view.svg" alt="editbutton" />
           </Link>
           <div
             className="delete"

@@ -29,6 +29,12 @@ export const menu = [
         url: "/users",
         icon: "user.svg",
       },
+    {
+      id:2,
+      title:"Vendor",
+      url:"/vendors",
+      icon:"user.svg"
+    }
       // {
       //   id: 2,
       //   title: "Products",

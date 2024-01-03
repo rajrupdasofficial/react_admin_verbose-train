@@ -14,6 +14,8 @@ const Add = (props: Props) => {
 
     const formData: Record<string, any> = {};
     const form = e.currentTarget;
+    const slug = window.location.pathname;
+    console.log(slug);
 
     props.columns
       .filter((column) => column.field !== "octaid") // Exclude 'octaid' field
@@ -27,7 +29,7 @@ const Add = (props: Props) => {
       });
 
     try {
-      const response = await fetch(`http://localhost:3000/api/${props.slug}s`, {
+      const response = await fetch(`http://localhost:3000/api${slug}`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -40,11 +42,11 @@ const Add = (props: Props) => {
         props.setOpen(false);
         // Additional actions upon successful API call
       } else {
-        console.error("Failed to add item");
+        console.log("Failed to add item");
         // Handle errors based on response status or message
       }
     } catch (error) {
-      console.error("Error adding item:", error);
+      console.log("Error adding item:", error);
       // Handle any network errors or exceptions
     }
   };
@@ -55,7 +57,7 @@ const Add = (props: Props) => {
         <span className="close" onClick={() => props.setOpen(false)}>
           X
         </span>
-        <h1>Add new Agent</h1>
+        <h1>Add</h1>
         <form onSubmit={handleSubmit}>
           {props.columns
             .filter(
