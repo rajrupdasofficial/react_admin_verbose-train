@@ -18,6 +18,7 @@ const columns: GridColDef[] = [
     field: "name",
     type: "string",
     headerName: "Agent full Name",
+
     width: 150,
   },
   {
@@ -47,6 +48,7 @@ const columns: GridColDef[] = [
   {
     field: "roles",
     editable: false,
+
   },
 ];
 

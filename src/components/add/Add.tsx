@@ -9,6 +9,7 @@ type Props = {
 };
 
 const Add = (props: Props) => {
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -77,6 +78,7 @@ const Add = (props: Props) => {
                 />
               </div>
             ))}
+
 
           <button type="submit">Submit</button>
         </form>
